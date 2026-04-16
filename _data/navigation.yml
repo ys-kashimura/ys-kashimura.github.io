@@ -3,8 +3,8 @@ pages:
   url: /
 - name: Publication
   url: /publication
-- name: Funded project
-  url: /fundedproject
+- name: Funded projects
+  url: /fundedprojects
 - name: Network psychometrics
   url: /networkpsychometrics
 - name: Journal links
