@@ -8,5 +8,5 @@ volume-issue:
 pages:
 cover: 
 authors:
-- Single-authored × 3 / Co-authored × 1 
+- Single-authored × 3, Co-authored × 1 
 ---
