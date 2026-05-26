@@ -6,7 +6,7 @@ pub_last:
 pub_date:
 volume-issue: 
 pages:
-cover: 
+cover: /assets/images/under.review.jpg
 authors:
 - Single-authored × 3, Co-authored × 1 
 ---
