@@ -7,4 +7,6 @@ pub_date:
 volume-issue: 
 pages:
 cover: /assets/images/accepted.png
+authors:
+- Single-authored × 1
 ---
