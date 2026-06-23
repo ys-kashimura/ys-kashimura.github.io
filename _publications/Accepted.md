@@ -6,5 +6,5 @@ pub_last:
 pub_date:
 volume-issue: 
 pages:
-cover: /assets/images/under.review.jpg
+cover: /assets/images/accepted.png
 ---
