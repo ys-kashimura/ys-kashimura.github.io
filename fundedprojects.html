@@ -1,7 +1,283 @@
 ---
 layout: default
-title : Funded projects
+title: Funded projects
 navbar_title: Funded projects
 container_class: container-xl
 ---
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ── Token System ── */
+  :root {
+    --navy:   #1a2744;
+    --amber:  #e8a020;
+    --cream:  #f7f6f2;
+    --muted:  #6b7280;
+    --border: #ddd8ce;
+    --card-bg: #ffffff;
+  }
+
+  /* ── Page wrapper ── */
+  .fp-page {
+    background: var(--cream);
+    min-height: 100vh;
+    padding: 3rem 0 5rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── Hero header ── */
+  .fp-hero {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .fp-hero__eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+  }
+  .fp-hero__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+  .fp-hero__sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  /* ── Timeline ── */
+  .fp-timeline {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    padding-left: 2.5rem;
+  }
+  .fp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--amber), var(--navy) 80%);
+    border-radius: 2px;
+  }
+
+  /* ── Project card ── */
+  .fp-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(26,39,68,.06);
+    transition: box-shadow .2s ease;
+    overflow: hidden;
+  }
+  .fp-card:hover {
+    box-shadow: 0 6px 20px rgba(26,39,68,.12);
+  }
+
+  /* timeline dot */
+  .fp-card::before {
+    content: '';
+    position: absolute;
+    left: -2.75rem;
+    top: 1.6rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--amber);
+    border: 2px solid var(--card-bg);
+    box-shadow: 0 0 0 2px var(--amber);
+  }
+
+  /* ── Card header (always visible) ── */
+  .fp-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .fp-card__header::-webkit-details-marker { display: none; }
+
+  .fp-card__meta-left {
+    flex: 1;
+    min-width: 0;
+  }
+  .fp-card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+  .fp-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .fp-badge--period {
+    background: rgba(26,39,68,.08);
+    color: var(--navy);
+  }
+  .fp-badge--org {
+    background: rgba(232,160,32,.12);
+    color: #8a5c00;
+  }
+  .fp-card__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 0.25rem;
+    line-height: 1.4;
+  }
+  .fp-card__amount {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .fp-card__amount strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* chevron */
+  .fp-card__chevron {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    transition: transform .25s ease;
+    margin-top: 0.2rem;
+  }
+  details[open] .fp-card__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ── Card body (expanded) ── */
+  .fp-card__body {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+  .fp-section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0 0 0.35rem;
+  }
+  .fp-card__abstract {
+    font-size: 0.9rem;
+    color: #374151;
+    line-height: 1.7;
+    margin: 0 0 1.25rem;
+  }
+
+  /* publications list */
+  .fp-pub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .fp-pub-list li {
+    font-size: 0.875rem;
+    color: #374151;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.55;
+  }
+  .fp-pub-list li:last-child { border-bottom: none; }
+  .fp-pub-list a {
+    color: var(--navy);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--amber);
+    word-break: break-word;
+  }
+  .fp-pub-list a:hover { color: var(--amber); }
+
+  /* no pubs placeholder */
+  .fp-no-pubs {
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .fp-timeline { padding-left: 1.5rem; }
+    .fp-card::before { left: -1.75rem; }
+    .fp-card__header { padding: 1rem; }
+    .fp-card__body   { padding: 1rem; }
+  }
+</style>
+
+<div class="fp-page">
+  <div class="container-xl px-3">
+
+    <!-- Hero -->
+    <div class="fp-hero">
+      <span class="fp-hero__eyebrow">Research Funding</span>
+      <h1 class="fp-hero__title">Funded Projects</h1>
+      <p class="fp-hero__sub">クリックして研究概要・業績を展開できます</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="fp-timeline">
+
+      <details class="fp-card">
+        <summary class="fp-card__header">
+          <div class="fp-card__meta-left">
+            <div class="fp-card__badges">
+              <span class="fp-badge fp-badge--period">2026.7.1–2027.3.31</span>
+              <span class="fp-badge fp-badge--org">明治大学</span>
+            </div>
+            <p class="fp-card__title">自然言語処理を用いた医療文書自動構造化システムの開発</p>
+            <p class="fp-card__amount">助成額：<strong>¥650,000</strong></p>
+          </div>
+          <span class="fp-card__chevron">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </summary>
+        <div class="fp-card__body">
+          <p class="fp-section-label">研究概要</p>
+          <p class="fp-card__abstract">
+            本研究では、深層学習ベースの自然言語処理技術を活用し、電子カルテや退院サマリなどの非構造化医療文書を自動的に構造化するシステムを開発する。医療従事者の記録負荷軽減と診療データの二次利用促進を目指す。
+          </p>
+          <p class="fp-section-label">業績</p>
+          <ul class="fp-pub-list">
+            <li>
+              Yamada T, Suzuki H (2025). Automatic structuring of Japanese clinical notes using domain-adapted transformers.
+              <em>Journal of Biomedical Informatics</em>, 148, 104521.
+              <a href="#" target="_blank" rel="noopener">[DOI]</a>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+    </div><!-- /.fp-timeline -->
+  </div><!-- /.container-xl -->
+</div><!-- /.fp-page -->
