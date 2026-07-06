@@ -1,5 +1,5 @@
 ---
-title:          "Under review (3)"
+title:          "Under review (1)"
 date:           2026-12-31
 pub:            
 pub_last:        
@@ -8,5 +8,5 @@ volume-issue:
 pages:
 cover: /assets/images/under.review.jpg
 authors:
-- Single-authored × 1, Co-authored × 2
+- Single-authored × 1, Co-authored × 1
 ---
